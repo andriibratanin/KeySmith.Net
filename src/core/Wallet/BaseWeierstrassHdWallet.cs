@@ -58,7 +58,7 @@ public abstract class BaseWeierstrassHdWallet<TCurve>
         curve.MakeUncompressedPublicKey(_privateKey, _uncompressedPublicKey);
     }
     ///
-    protected BaseWeierstrassHdWallet(TCurve curve, ReadOnlySpan<byte> seed, params ReadOnlySpan<uint> path)
+    protected BaseWeierstrassHdWallet(TCurve curve, ReadOnlySpan<byte> seed, params uint[] path)
     {
         ArgumentNullException.ThrowIfNull(curve, nameof(curve));
         _curve = curve;
@@ -100,7 +100,7 @@ public abstract class BaseWeierstrassHdWallet<TCurve>
         curve.MakeUncompressedPublicKey(_privateKey, _uncompressedPublicKey);
     }
     ///
-    protected BaseWeierstrassHdWallet(TCurve curve, string mnemonic, string passphrase, params ReadOnlySpan<uint> path)
+    protected BaseWeierstrassHdWallet(TCurve curve, string mnemonic, string passphrase, params uint[] path)
     {
         ArgumentNullException.ThrowIfNull(curve, nameof(curve));
         _curve = curve;

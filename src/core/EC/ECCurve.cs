@@ -22,7 +22,7 @@ public abstract class ECCurve
 
     internal void DerivePath(ReadOnlySpan<byte> seed,
         Span<byte> keyDestination, Span<byte> chainCodeDestination,
-        params ReadOnlySpan<uint> path)
+        params uint[] path)
     {
         GetMasterKeyFromSeed(seed, keyDestination, chainCodeDestination);
 

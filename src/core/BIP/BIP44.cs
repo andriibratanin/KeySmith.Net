@@ -79,8 +79,10 @@ public static class BIP44
     /// </summary>
     /// <param name="indexes"></param>
     /// <returns></returns>
-    public static string MakePath(params ReadOnlySpan<uint> indexes)
+    public static string MakePath(params uint[] indexes)
     {
+        ArgumentNullException.ThrowIfNull(indexes, nameof(indexes));
+
         var sb = new StringBuilder("m", indexes.Length * 3);
         foreach(uint index in indexes)
         {
@@ -117,15 +119,13 @@ public static class BIP44
         }
 
         int pathLength = path.Count('/');
-        var subPath = path[1..];
+        var subPath = path[1..].ToString();
 
         uint[] pathBuffer = new uint[pathLength];
 
         int pathIndex = -1;
-        foreach(var range in subPath.Split('/'))
+        foreach(var segment in subPath.Split('/'))
         {
-            var segment = subPath[range];
-
             if(segment.Length == 0 && pathIndex == -1)
             {
                 pathIndex = 0;
@@ -181,15 +181,13 @@ public static class BIP44
             throw new ArgumentException("Destination too short", nameof(destination));
         }
 
-        var subPath = path[1..];
+        var subPath = path[1..].ToString();
 
         uint[] pathBuffer = new uint[pathLength];
 
         int pathIndex = -1;
-        foreach(var range in subPath.Split('/'))
+        foreach(var segment in subPath.Split('/'))
         {
-            var segment = subPath[range];
-
             if(segment.Length == 0 && pathIndex == -1)
             {
                 pathIndex = 0;
@@ -246,14 +244,12 @@ public static class BIP44
             return false;
         }
 
-        var subPath = path[1..];
+        var subPath = path[1..].ToString();
         Span<uint> pathBuffer = stackalloc uint[pathLength];
 
         int pathIndex = -1;
-        foreach(var range in subPath.Split('/'))
+        foreach(var segment in subPath.Split('/'))
         {
-            var segment = subPath[range];
-
             if(segment.Length == 0 && pathIndex == -1)
             {
                 pathIndex = 0;
@@ -285,7 +281,7 @@ public static class BIP44
         return true;
     }
 
-    private static void WriteInto(Span<uint> destination, params Span<uint> values)
+    private static void WriteInto(Span<uint> destination, params uint[] values)
     {
         if(values.Length != destination.Length)
         {

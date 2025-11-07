@@ -14,7 +14,7 @@ public static class Slip10
     public const uint HardenedOffset = 2147483648u;
 
     /// <summary>
-    /// Derives the master private key based on a seed. 
+    /// Derives the master private key based on a seed.
     /// Implements <see href="https://github.com/satoshilabs/slips/blob/master/slip-0010.md#master-key-generation"/>.
     /// </summary>
     /// <param name="curve">Elliptic Curve to use</param>
@@ -31,7 +31,7 @@ public static class Slip10
     }
 
     /// <summary>
-    /// Derives the master private key based on a seed and writes it to a provided buffer. 
+    /// Derives the master private key based on a seed and writes it to a provided buffer.
     /// Implements <see href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#master-key-generation"/>.
     /// </summary>
     /// <param name="curve">Elliptic Curve to use</param>
@@ -63,9 +63,11 @@ public static class Slip10
     /// <param name="path">Raw path to use</param>
     /// <returns>Tuple of derived child key and the corresponding chain code</returns>
     /// <exception cref="ArgumentException"></exception>
-    public static (byte[], byte[]) DerivePath(ECCurve curve, ReadOnlySpan<byte> seed, params ReadOnlySpan<uint> path)
+    public static (byte[], byte[]) DerivePath(ECCurve curve, ReadOnlySpan<byte> seed, params uint[] path)
     {
         ArgumentNullException.ThrowIfNull(curve, nameof(curve));
+        ArgumentNullException.ThrowIfNull(path, nameof(path));
+
         if(path.Length == 0)
         {
             throw new ArgumentException("Path cannot be empty", nameof(path));
@@ -88,8 +90,10 @@ public static class Slip10
     /// <param name="path">Raw path to use</param>
     /// <returns></returns>
     public static bool TryDerivePath(ECCurve curve, ReadOnlySpan<byte> seed,
-        Span<byte> keyDestination, Span<byte> chainCodeDestination, params ReadOnlySpan<uint> path)
+        Span<byte> keyDestination, Span<byte> chainCodeDestination, params uint[] path)
     {
+        ArgumentNullException.ThrowIfNull(path, nameof(path));
+
         if(curve is null)
         {
             return false;
@@ -122,7 +126,7 @@ public static class Slip10
         Span<uint> pathIndexes = stackalloc uint[BIP44.GetPathLength(path)];
         BIP44.Parse(path, pathIndexes, out _);
 
-        curve.DerivePath(seed, keyBuffer, chainCodeBuffer, pathIndexes);
+        curve.DerivePath(seed, keyBuffer, chainCodeBuffer, pathIndexes.ToArray());
         return (keyBuffer, chainCodeBuffer);
     }
 
@@ -155,7 +159,7 @@ public static class Slip10
             return false;
         }
 
-        curve.DerivePath(seed, keyDestination, chainCodeDestination, pathIndexes);
+        curve.DerivePath(seed, keyDestination, chainCodeDestination, pathIndexes.ToArray());
         return true;
     }
 }

@@ -30,7 +30,7 @@ public class Slip10Benchmarks
             TestData.Seed_512B,
             _keyBuffer,
             _chainCodeBuffer,
-            path
+            path.ToArray()
         );
     }
 
@@ -52,7 +52,7 @@ public class Slip10Benchmarks
             TestData.Seed_512B,
             _keyBuffer,
             _chainCodeBuffer,
-            path
+            path.ToArray()
         );
     }
 }
