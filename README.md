@@ -1,3 +1,18 @@
+> [!WARNING]  
+> This fork contains a backported version of the "Keysmith.Net" project to .NET 8 LTS (see it in a separate branch).  
+> It was created for experimental purposes and doesn't guarantee any correctness compared to the original.
+>
+> **Disclaimer:**
+>```
+>THIS SOFTWARE PORT IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+>WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+>MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+>ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+>WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+>ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+>OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+>```
+
 # Keysmith.Net
 
 Modern .NET9 library implementing common cryptographic standards used by various cryptocurrencies like BIP32/SLIP10, BIP39 and BIP44.

@@ -17,7 +17,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "9.x"
+          dotnet-version: "8.x"
 
       - name: Restore dependencies
         run: dotnet restore
@@ -28,10 +28,12 @@ jobs:
       - name: Build the project
         run: dotnet build --configuration Release --no-restore
 
-      - name: Pack the project
-        run: dotnet pack --configuration Release --no-build --output ./nupkgs
+      # Disabled for the fork on purpose
+      #- name: Pack the project
+      #  run: dotnet pack --configuration Release --no-build --output ./nupkgs
 
-      - name: Publish to NuGet
-        env:
-          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-        run: dotnet nuget push ./nupkgs/*.nupkg --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY --skip-duplicate
+      # Disabled for the fork on purpose
+      #- name: Publish to NuGet
+      #  env:
+      #    NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      #  run: dotnet nuget push ./nupkgs/*.nupkg --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY --skip-duplicate
